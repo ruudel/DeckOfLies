@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://d080g7sfkxk6q"]
+
+[ext_resource type="Script" uid="uid://btc846uebocjm" path="res://Scenes/Board/Board.gd" id="1_v1rvb"]
+[ext_resource type="PackedScene" uid="uid://ceff87q0ooo36" path="res://Scenes/Board/Board_tile.tscn" id="2_04rwb"]
+
+[node name="Board" type="Node2D"]
+script = ExtResource("1_v1rvb")
+
+[node name="BoardTile" parent="." instance=ExtResource("2_04rwb")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_left = 34.0
+offset_top = 534.0
+offset_right = 83.0
+offset_bottom = 565.0
+scale = Vector2(1.9498883, 1.9498883)
+text = "ROLL"

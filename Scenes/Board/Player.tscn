@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://dea2xbhqtyhhr"]
+
+[node name="Player" type="Node2D"]
+scale = Vector2(0.5, 0.5)
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.29206187, 0.50913006, 0.8251017, 1)

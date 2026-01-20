@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://ceff87q0ooo36"]
+
+[ext_resource type="Script" uid="uid://djj7mf3n58klr" path="res://Scenes/Board/board_tile.gd" id="1_g547g"]
+
+[node name="BoardTile" type="Area2D"]
+scale = Vector2(1.0340425, 1.0306587)
+script = ExtResource("1_g547g")
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
