@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://db6322386bese"]
 
-[ext_resource type="Script" uid="uid://bfcybc4rbc0y6" path="res://Scenes/Board/UI/event_popup.gd" id="1_3k1m3"]
+[ext_resource type="Script" uid="uid://bfcybc4rbc0y6" path="res://Scenes/Board/UI/EventPopup.gd" id="1_3k1m3"]
 
 [node name="EventPopup" type="CanvasLayer"]
 script = ExtResource("1_3k1m3")

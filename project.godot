@@ -21,6 +21,7 @@ TileEventManager="*res://Scenes/Board/TileEventManager.gd"
 GameState="*res://Scenes/GameState.gd"
 CharacterDatabase="*res://Scenes/Card/CharacterDatabase.gd"
 SignalBus="*res://Scenes/SignalBus.gd"
+ResourceManager="*res://Scenes/Board/ResourceManager.gd"
 
 [editor_plugins]
 

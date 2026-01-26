@@ -23,6 +23,10 @@ func show_event(event: Event):
 	else:
 		image_rect.hide()
 	
+	# If this is a resource event, collect it
+	if event.event_type == "resource" and event.resource_pickup:
+		ResourceManager.add_resource(event.resource_pickup)
+	
 	show()
 
 func _on_close_pressed():

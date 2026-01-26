@@ -13,6 +13,13 @@ const EVENT_POPUP = preload("res://Scenes/Board/UI/EventPopup.tscn")
 const CHARACTER_CARD = preload("res://Scenes/Card/CharacterCard.tscn")
 const FIRST_TILE_HOUR = 0
 
+# Visual constants
+const EVENT_HIGHLIGHT_COLOR = Color(0.295, 0.963, 0.808, 1.0)  # Multiplier for event tiles
+const TILE_HOVER_COLOR = Color(1.0, 1.0, 1.0, 1.0)  # White on hover
+const TILE_BASE_COLOR = Color(0.474, 0.474, 0.474, 1.0)
+const RESOURCE_HIGHLIGHT_COLOR = Color(1.5, 1.2, 0.8)
+const PLAYER_STATS_UI = preload("res://Scenes/Board/UI/PlayerStatsUI.tscn")
+
 # ============================================
 # STATE VARIABLES
 # ============================================
@@ -24,6 +31,10 @@ var last_tile_index: int = 0
 var event_popup
 var event_tile_effects = {}  # Store references to highlight effects
 var current_tween: Tween = null
+var landed_event_hour: int = -1
+var event_border_lines = []
+var event_tile_hours = {}
+var player_stats_ui
 
 # ============================================
 # UI REFERENCES
@@ -46,14 +57,20 @@ func _ready():
 	spawn_player()
 	setup_ui()
 	setup_event_popup()
+	setup_player_stats_ui()
 	highlight_event_tiles()
 
 func setup_ui():
 	roll_button.pressed.connect(_on_roll_button_pressed)
 	
-	day_label.text = "Day: " + str(GameState.current_day)
-	day_label.position = Vector2(10, 10)
-	$CanvasLayer.add_child(day_label)
+	#day_label.text = "Day: " + str(GameState.current_day)
+	#day_label.position = Vector2(10, 10)
+	#$CanvasLayer.add_child(day_label)
+	
+func setup_player_stats_ui():
+	player_stats_ui = PLAYER_STATS_UI.instantiate()
+	player_stats_ui.position = Vector2(10, 50)  # Top-left, below day counter
+	$CanvasLayer.add_child(player_stats_ui)
 
 # ============================================
 # BOARD CREATION
@@ -77,7 +94,7 @@ func create_circular_board():
 		add_child(tile)
 		tiles.append(tile)
 
-func setup_tile_shape(tile: Area2D, tile_index: int):
+func setup_tile_shape(tile: Area2D, hour: int):  # Parameter is 'hour' not 'tile_index'
 	var polygon = tile.get_node("Polygon2D")
 	var collision = tile.get_node("CollisionPolygon2D")
 	
@@ -85,7 +102,7 @@ func setup_tile_shape(tile: Area2D, tile_index: int):
 	
 	polygon.polygon = points
 	collision.polygon = points
-	polygon.color = _get_time_of_day_color(tile_index)
+	polygon.color = _get_time_of_day_color(hour)  # Use hour, not tile_index
 	
 	_add_tile_border(tile, points)
 
@@ -103,13 +120,30 @@ func setup_event_popup():
 	add_child(event_popup)
 
 func highlight_event_tiles():
-	var event_hours = TileEventManager.get_event_hours()
+	var event_starts = TileEventManager.get_event_hours()
 	
-	for hour in event_hours:
-		# Find the tile with this hour
-		for i in range(tiles.size()):
-			if tiles[i].hour_value == hour:
-				highlight_tile_border(tiles[i], i)
+	for start_hour in event_starts:
+		var event = TileEventManager.get_event(start_hour)
+		if event:
+			_color_multi_tile_event(start_hour, event)
+
+func _color_multi_tile_event(start_hour: int, event: Event):
+	var duration = event.duration_hours
+	
+	# Choose color based on event type
+	var highlight_color = EVENT_HIGHLIGHT_COLOR
+	if event.event_type == "resource":
+		highlight_color = RESOURCE_HIGHLIGHT_COLOR
+	
+	for i in range(duration):
+		var hour = (start_hour + i) % 24
+		event_tile_hours[hour] = true
+		
+		for tile_idx in range(tiles.size()):
+			if tiles[tile_idx].hour_value == hour:
+				var polygon = tiles[tile_idx].get_node("Polygon2D")
+				var base_color = _get_time_of_day_color(hour)
+				polygon.color = base_color * highlight_color
 				break
 
 # ============================================
@@ -159,22 +193,19 @@ func _add_tile_border(tile: Area2D, points: PackedVector2Array):
 	line.width = 2
 	line.default_color = Color(0.2, 0.2, 0.3, 0.5)
 	line.closed = true
+	line.z_index = 2
 	tile.add_child(line)
 
-func highlight_tile_border(tile: Area2D, _tile_index: int):
-	# Find the Line2D border that was added to this tile
-	for child in tile.get_children():
-		if child is Line2D:
-			child.default_color = Color(0.0, 1.0, 0.5, 1.0)
-			child.width = 3  # Make it thicker
-			child.z_index = 100
-			break
-
 func _get_time_of_day_color(hour: int) -> Color:
-	var dawn = Color(0.8, 0.4, 0.3)          # Orange/pink
-	var noon = Color(0.9, 0.9, 0.6)          # Bright yellow
-	var dusk = Color(0.6, 0.3, 0.5)          # Purple/orange
-	var night = Color(0.1, 0.1, 0.3)         # Deep blue
+	#var dawn = Color(0.8, 0.4, 0.3)          # Orange/pink
+	#var noon = Color(0.9, 0.9, 0.6)          # Bright yellow
+	#var dusk = Color(0.6, 0.3, 0.5)          # Purple/orange
+	#var night = Color(0.1, 0.1, 0.3)         # Deep blue
+	
+	var dawn = TILE_BASE_COLOR
+	var noon = TILE_BASE_COLOR
+	var dusk = TILE_BASE_COLOR
+	var night = TILE_BASE_COLOR
 	
 	# Hour-based gradient
 	if hour >= 21 or hour < 5:  # Night (21-4)
@@ -208,6 +239,7 @@ func spawn_player():
 	
 	var pos = _get_tile_center_position(player_tile_index)
 	player.position = pos
+	player.z_index = 10
 
 func _get_tile_center_position(tile_index: int) -> Vector2:
 	var angle = (2 * PI / TILE_COUNT) * tile_index - PI / 2
@@ -219,30 +251,45 @@ func _get_tile_center_position(tile_index: int) -> Vector2:
 # ============================================
 
 func move_player_to(tile_index: int):
-	if tile_index == player_tile_index:
+	if is_moving:
 		return
+	is_moving = true
 	
+	# Use your existing path calculation 
 	var path = _calculate_path(player_tile_index, tile_index)
 	
-	# Check if path crosses midnight (hour 0)
-	var midnight_position = -1
+	# Instead of animating the whole path at once, we move step-by-step
+	# This allows us to catch the "Midnight" moment safely
+	for next_tile in path:
+		# Check if this specific step crosses from hour 23 (Index 11/12 depending on start) to 0
+		# Based on your logic: crossing from index 23 to 0 [cite: 199]
+		if player_tile_index == 23 and next_tile == 0:
+			# 1. Animate to the last tile of the day
+			await animate_along_path([next_tile]) 
+			player_tile_index = next_tile
+			
+			# 2. Trigger the midnight logic [cite: 92, 201]
+			_on_reached_midnight()
+			
+			# 3. Wait for the user to close the popup before continuing the rest of the move
+			await SignalBus.popup_closed
+		else:
+			# Normal step movement
+			await animate_along_path([next_tile])
+			player_tile_index = next_tile
+
+	# Once the entire path is finished
+	is_moving = false
+	_on_move_finished()
+
+# Ensure your animation function uses 'await' so the loop knows when a tile move is done
+func animate_along_path(path: Array):
+	var tween = create_tween()
+	for tile_idx in path:
+		var target_pos = _get_tile_center_position(tile_idx) 
+		tween.tween_property(player, "position", target_pos, MOVE_DURATION_PER_TILE)
 	
-	for i in range(path.size()):
-		var tile_hour = tiles[path[i]].hour_value
-		if tile_hour == 0:
-			midnight_position = i
-			break
-	
-	# If we cross midnight, split the movement
-	if midnight_position >= 0:
-		var path_to_midnight = path.slice(0, midnight_position + 1)
-		_animate_along_path(path_to_midnight, true)
-		
-		if midnight_position < path.size() - 1:
-			var remaining_path = path.slice(midnight_position + 1, path.size())
-			event_popup.popup_closed.connect(_continue_movement_after_day_change.bind(remaining_path), CONNECT_ONE_SHOT)
-	else:
-		_animate_along_path(path, false)
+	await tween.finished # This is crucial for the loop above to work
 
 func _continue_movement_after_day_change(remaining_path: Array):
 	_animate_along_path(remaining_path, false)
@@ -284,13 +331,14 @@ func _animate_along_path(path: Array, stop_at_end: bool = false):
 		current_tween.finished.connect(_on_move_finished)
 
 func clear_event_highlights():
-	# Reset all tile borders to default
-	for tile in tiles:
-		for child in tile.get_children():
-			if child is Line2D:
-				child.default_color = Color(0.2, 0.2, 0.3, 0.5)
-				child.width = 2
-				break
+	event_tile_hours.clear()
+	
+	for i in range(tiles.size()):
+		var tile = tiles[i]
+		var hour = tile.hour_value
+		var polygon = tile.get_node("Polygon2D")
+		polygon.color = _get_time_of_day_color(hour)
+
 
 # ============================================
 # SIGNAL HANDLERS
@@ -314,12 +362,14 @@ func _on_move_finished():
 	SignalBus.player_landed_on_tile.emit(player_tile_index, current_hour)
 	
 	if TileEventManager.has_event(current_hour):
+		landed_event_hour = current_hour  # Remember where we landed
 		var event = TileEventManager.get_event(current_hour)
 		SignalBus.popup_requested.emit(event)
 		roll_button.disabled = true
 
 func _on_day_changed(new_day: int):
-	day_label.text = "Day: " + str(new_day)
+	#day_label.text = "Day: " + str(new_day)
+	pass
 
 func _on_tile_clicked(_viewport, event, _shape_idx, tile_index: int):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
@@ -329,18 +379,43 @@ func _on_tile_clicked(_viewport, event, _shape_idx, tile_index: int):
 
 func _on_tile_hover(_tile_index: int, tile: Area2D):
 	var polygon = tile.get_node("Polygon2D")
-	polygon.color = Color(1.0, 1.0, 1.0, 1.0)
- 
-func _on_tile_unhover(tile_index: int, tile: Area2D):
+	polygon.color = TILE_HOVER_COLOR
+
+func _on_tile_unhover(_tile_index: int, tile: Area2D):
 	var polygon = tile.get_node("Polygon2D")
-	var hour = tile.hour_value  # Just ask the tile!
-	polygon.color = _get_time_of_day_color(hour)
+	var hour = tile.hour_value
+	var base_color = _get_time_of_day_color(hour)
+	
+	if event_tile_hours.has(hour):
+		# Check what type of event to restore correct color
+		var event = TileEventManager.get_event(hour)
+		if event and event.event_type == "resource":
+			polygon.color = base_color * RESOURCE_HIGHLIGHT_COLOR
+		else:
+			polygon.color = base_color * EVENT_HIGHLIGHT_COLOR
+	else:
+		polygon.color = base_color
 
 func _on_event_triggered(event_data: Dictionary):
 	print("Event triggered: ", event_data.get("title", ""))
 
 func _on_popup_closed():
-	# Just re-enable button if movement is done
+	if landed_event_hour >= 0:
+		# Move player to the end of the event
+		var end_hour = TileEventManager.get_event_end_hour(landed_event_hour)
+		
+		# Find the tile with that end hour
+		for i in range(tiles.size()):
+			if tiles[i].hour_value == end_hour:
+				# Animate player to end of event
+				var tween = create_tween()
+				var target_pos = _get_tile_center_position(i)
+				tween.tween_property(player, "position", target_pos, 0.3)
+				player_tile_index = i
+				break
+		
+		landed_event_hour = -1  # Reset
+	
 	if not is_moving:
 		roll_button.disabled = false
 
