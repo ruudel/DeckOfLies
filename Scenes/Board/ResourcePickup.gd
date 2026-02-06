@@ -4,14 +4,15 @@ class_name ResourcePickup
 enum ResourceType {
 	MONEY,
 	INSIGHT,
-	TIME
+	TIME,
+	ALL  # NEW: Add this
 }
 
 @export var resource_type: ResourceType = ResourceType.MONEY
 @export var display_name: String = ""
 @export var amount: int = 0
 @export var description: String = ""
-@export var icon: Texture2D  # For future use
+@export var icon: Texture2D
 
 func _init(
 	p_type: ResourceType = ResourceType.MONEY,

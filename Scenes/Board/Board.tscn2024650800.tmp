@@ -6,19 +6,6 @@
 [node name="Board" type="Node2D" unique_id=102062521]
 script = ExtResource("1_v1rvb")
 
-[node name="TextureRect" type="ColorRect" parent="." unique_id=1353755580]
-custom_minimum_size = Vector2(1200, 800)
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(1.0033114, 0.9978244)
-size_flags_horizontal = 3
-size_flags_vertical = 3
-mouse_filter = 2
-color = Color(0.039215688, 0.039215688, 0.07058824, 1)
-
 [node name="BoardTile" parent="." unique_id=1041950542 instance=ExtResource("2_04rwb")]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2031811014]

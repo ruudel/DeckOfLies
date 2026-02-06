@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://dtjgelkmwr1jp"]
+
+[ext_resource type="Script" uid="uid://div6r201gvvl8" path="res://Scenes/Board/UI/RollOverlay.gd" id="1_ms6pt"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_wr41t"]
+font_size = 64
+
+[sub_resource type="LabelSettings" id="LabelSettings_yl260"]
+font_size = 14
+
+[node name="RollOverlay" type="CanvasLayer" unique_id=1383170838]
+script = ExtResource("1_ms6pt")
+
+[node name="Panel" type="Panel" parent="." unique_id=1134541121]
+custom_minimum_size = Vector2(160, 140)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel" unique_id=2106892199]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+alignment = 1
+
+[node name="RollLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1438679951]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_wr41t")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SubLabel" type="Label" parent="Panel/VBoxContainer" unique_id=1266609527]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_yl260")
+horizontal_alignment = 1
+vertical_alignment = 1

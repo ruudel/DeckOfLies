@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://by878xlhg2xxw"]
+
+[ext_resource type="Script" uid="uid://bd4a7hu2hq3a3" path="res://Scenes/Card/Deck/DeckView.gd" id="1_2an3u"]
+[ext_resource type="Theme" uid="uid://3xlxfo03ubja" path="res://Theme/deck_of_lies.tres" id="2_jomot"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_x4ka5"]
+font_size = 28
+
+[sub_resource type="LabelSettings" id="LabelSettings_2an3u"]
+font_size = 20
+
+[sub_resource type="LabelSettings" id="LabelSettings_jomot"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_7vw2q"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_is61j"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_4sql4"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_5jgl3"]
+font_size = 14
+
+[sub_resource type="LabelSettings" id="LabelSettings_fa5j4"]
+font_size = 20
+
+[node name="DeckView" type="CanvasLayer" unique_id=1956590819]
+script = ExtResource("1_2an3u")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1419177966]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.3372549)
+
+[node name="Panel" type="Panel" parent="ColorRect" unique_id=99687768]
+clip_contents = true
+custom_minimum_size = Vector2(900, 600)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -450.0
+offset_top = -300.0
+offset_right = 450.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_jomot")
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/Panel" unique_id=458968851]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/Panel/MarginContainer" unique_id=657286601]
+layout_mode = 2
+
+[node name="Header" type="HBoxContainer" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=514277247]
+clip_contents = true
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Title" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Header" unique_id=1051532433]
+layout_mode = 2
+text = "Your deck"
+label_settings = SubResource("LabelSettings_x4ka5")
+
+[node name="CloseButton" type="Button" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Header" unique_id=405109016]
+clip_contents = true
+layout_mode = 2
+text = "Return to Board"
+
+[node name="HSeparator" type="HSeparator" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=110208170]
+layout_mode = 2
+
+[node name="Content" type="HBoxContainer" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=1392915339]
+layout_direction = 2
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Stats" type="VBoxContainer" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content" unique_id=1992324788]
+layout_mode = 2
+
+[node name="StatsTitle" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=1927938693]
+layout_mode = 2
+text = "Deck stats"
+label_settings = SubResource("LabelSettings_2an3u")
+
+[node name="TotalLabel" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=580226830]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_jomot")
+
+[node name="CharactersLabel" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=371406893]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_7vw2q")
+
+[node name="ItemsLabel" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=524964548]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_is61j")
+
+[node name="ActionsLabel" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=652162587]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_4sql4")
+
+[node name="RitualsLabel" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=460900708]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_5jgl3")
+
+[node name="HSeparator" type="HSeparator" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=627377215]
+layout_mode = 2
+
+[node name="SynergyTitle" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=2107644672]
+layout_mode = 2
+text = "Synergies
+"
+label_settings = SubResource("LabelSettings_fa5j4")
+
+[node name="SynergyLabel" type="RichTextLabel" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/Stats" unique_id=516829782]
+layout_mode = 2
+text = "None unlocked. Yet..."
+
+[node name="VSeparator" type="VSeparator" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content" unique_id=354940507]
+layout_mode = 2
+
+[node name="CardList" type="ScrollContainer" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content" unique_id=514890011]
+clip_contents = false
+custom_minimum_size = Vector2(600, 0)
+layout_direction = 3
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CardListContainer" type="VBoxContainer" parent="ColorRect/Panel/MarginContainer/VBoxContainer/Content/CardList" unique_id=270514470]
+layout_mode = 2

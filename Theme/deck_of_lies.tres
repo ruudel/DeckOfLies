@@ -1,0 +1,42 @@
+[gd_resource type="Theme" format=3 uid="uid://3xlxfo03ubja"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yjjef"]
+bg_color = Color(0.23921569, 0.20392157, 0.3137255, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pipm5"]
+bg_color = Color(0.83137256, 0.65882355, 0.29411766, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_si74a"]
+bg_color = Color(0.9098039, 0.78431374, 0.42745098, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7lli5"]
+bg_color = Color(0.16470589, 0.14901961, 0.21960784, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o0gkk"]
+bg_color = Color(0.16470589, 0.14901961, 0.21960784, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vq06f"]
+bg_color = Color(0.16470589, 0.14901961, 0.21960784, 1)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0.9098039, 0.8784314, 0.83137256, 1)
+border_blend = true
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[resource]
+Button/colors/font_color = Color(0.11764706, 0.10980392, 0.15686275, 1)
+Button/styles/hover = SubResource("StyleBoxFlat_yjjef")
+Button/styles/normal = SubResource("StyleBoxFlat_pipm5")
+Button/styles/pressed = SubResource("StyleBoxFlat_si74a")
+Label/colors/font_color = Color(0.9098039, 0.8784314, 0.83137256, 1)
+Label/colors/font_outline_color = Color(0.039215688, 0.039215688, 0.07058824, 1)
+Label/constants/outline_size = 2
+Label/font_sizes/font_size = 16
+Label/styles/normal = SubResource("StyleBoxFlat_7lli5")
+Panel/styles/panel = SubResource("StyleBoxFlat_o0gkk")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_vq06f")

@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://bewpankcleine"]
+
+[ext_resource type="Script" uid="uid://kiquex2uocv7" path="res://Scenes/Board/UI/DialogueOverlay.gd" id="1_kyxx6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_3fi1g"]
+font_size = 18
+font_color = Color(0.83137256, 0.65882355, 0.29411766, 1)
+
+[node name="DialogueOverlay" type="CanvasLayer" unique_id=1254452828]
+script = ExtResource("1_kyxx6")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=552774709]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.5686275)
+
+[node name="Panel" type="Panel" parent="." unique_id=175202022]
+custom_minimum_size = Vector2(0, 220)
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1725916278]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer" unique_id=1195842041]
+layout_mode = 2
+
+[node name="Portrait" type="TextureRect" parent="Panel/MarginContainer/HBoxContainer" unique_id=1350120431]
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 2
+stretch_mode = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/MarginContainer/HBoxContainer" unique_id=622512561]
+layout_mode = 2
+alignment = 2
+
+[node name="NameLabel" type="Label" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1992418477]
+layout_mode = 2
+label_settings = SubResource("LabelSettings_3fi1g")
+
+[node name="DialogueLabel" type="RichTextLabel" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=590734691]
+layout_mode = 2
+bbcode_enabled = true
+fit_content = true
+scroll_active = false
+
+[node name="NextButton" type="Button" parent="Panel/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1355154691]
+custom_minimum_size = Vector2(60, 40)
+layout_mode = 2
+text = "▶"
+icon_alignment = 1

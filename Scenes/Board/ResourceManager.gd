@@ -35,21 +35,53 @@ func setup_resource_pickups():
 		1,
 		"You find a way to extend your investigation. Time is on your side."
 	)
+	
+	resource_pickups["all"] = ResourcePickup.new(
+		ResourcePickup.ResourceType.ALL,
+		"Everything",
+		1,
+		"You had a damn fine cup of coffee. Everything is looking better."
+	)
 
 func add_resource(pickup: ResourcePickup):
 	match pickup.resource_type:
 		ResourcePickup.ResourceType.MONEY:
-			money += pickup.amount
-			resource_changed.emit(pickup.resource_type, money)
-			print("Gained ", pickup.amount, " money. Total: ", money)
+			_update_money(pickup.amount)
+			
 		ResourcePickup.ResourceType.INSIGHT:
-			insight += pickup.amount
-			resource_changed.emit(pickup.resource_type, insight)
-			print("Gained ", pickup.amount, " insight. Total: ", insight)
+			_update_insight(pickup.amount)
+			
 		ResourcePickup.ResourceType.TIME:
-			time += pickup.amount
-			resource_changed.emit(pickup.resource_type, time)
-			print("Gained ", pickup.amount, " time. Total: ", time)
+			_update_time(pickup.amount)
+			
+		ResourcePickup.ResourceType.ALL:
+			time = max(0, time + pickup.amount)
+			money = max(0, money + pickup.amount)
+			insight = max(0, insight + pickup.amount)
+			
+			resource_changed.emit(ResourcePickup.ResourceType.TIME, time)
+			resource_changed.emit(ResourcePickup.ResourceType.MONEY, money)
+			resource_changed.emit(ResourcePickup.ResourceType.INSIGHT, insight)
+			
+			print("Coffee applied! All resources increased.")
+
+func _update_money(p_amount: int):
+	money = max(0, money + p_amount)
+	# We force the signal to say 'MONEY' regardless of what the pickup was
+	resource_changed.emit(ResourcePickup.ResourceType.MONEY, money)
+	print("Money: ", money)
+
+func _update_insight(p_amount: int):
+	insight = max(0, insight + p_amount)
+	# We force the signal to say 'INSIGHT'
+	resource_changed.emit(ResourcePickup.ResourceType.INSIGHT, insight)
+	print("Insight: ", insight)
+
+func _update_time(p_amount: int):
+	time = max(0, time + p_amount)
+	# We force the signal to say 'TIME'
+	resource_changed.emit(ResourcePickup.ResourceType.TIME, time)
+	print("Time: ", time)
 
 func get_random_resource() -> ResourcePickup:
 	var keys = resource_pickups.keys()

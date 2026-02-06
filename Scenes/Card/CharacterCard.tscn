@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=3 uid="uid://bkxml64dnqwkw"]
+[gd_scene format=3 uid="uid://bkxml64dnqwkw"]
 
 [ext_resource type="Script" uid="uid://bvuhumnipy4p" path="res://Scenes/Card/CharacterCard.gd" id="1_imfdn"]
 
@@ -8,35 +8,36 @@ font_size = 18
 [sub_resource type="LabelSettings" id="LabelSettings_imfdn"]
 font_size = 12
 
-[node name="CharacterCard" type="PanelContainer"]
+[node name="CharacterCard" type="PanelContainer" unique_id=1593507368]
 custom_minimum_size = Vector2(200, 280)
 script = ExtResource("1_imfdn")
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1205093697]
 layout_mode = 2
 theme_override_constants/margin_left = 8
 theme_override_constants/margin_top = 8
 theme_override_constants/margin_right = 8
 theme_override_constants/margin_bottom = 8
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=465930249]
+layout_direction = 2
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=52390194]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_gryqw")
 horizontal_alignment = 1
 
-[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer"]
+[node name="TitleLabel" type="Label" parent="MarginContainer/VBoxContainer" unique_id=1947872255]
 layout_mode = 2
 label_settings = SubResource("LabelSettings_imfdn")
 horizontal_alignment = 1
 
-[node name="PortraitRect" type="ColorRect" parent="MarginContainer/VBoxContainer"]
+[node name="PortraitRect" type="ColorRect" parent="MarginContainer/VBoxContainer" unique_id=994530392]
 custom_minimum_size = Vector2(180, 120)
 layout_mode = 2
 
-[node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer"]
+[node name="DescriptionLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer" unique_id=217479009]
 layout_mode = 2
 bbcode_enabled = true
 fit_content = true

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a12;
+    color: #e8e0d4;
+    font-family: 'Courier New', monospace;
+    padding: 40px;
+    min-height: 100vh;
+  }
+  h1 {
+    text-align: center;
+    font-size: 28px;
+    letter-spacing: 4px;
+    margin-bottom: 6px;
+    color: #d4a84b;
+    text-transform: uppercase;
+  }
+  .subtitle {
+    text-align: center;
+    font-size: 12px;
+    color: #5a5260;
+    letter-spacing: 2px;
+    margin-bottom: 40px;
+  }
+
+  .section-title {
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #5a5260;
+    margin-bottom: 14px;
+    margin-top: 36px;
+    border-bottom: 1px solid #1e1c24;
+    padding-bottom: 6px;
+  }
+
+  /* Main palette row */
+  .palette-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .swatch {
+    width: 80px;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    cursor: pointer;
+    transition: transform 0.15s;
+  }
+  .swatch:hover { transform: scale(1.06); }
+  .swatch-color { height: 72px; }
+  .swatch-info {
+    background: #12111a;
+    padding: 6px 5px;
+    text-align: center;
+  }
+  .swatch-name { font-size: 9px; color: #9a9098; margin-bottom: 2px; }
+  .swatch-hex { font-size: 11px; color: #d4ccc4; }
+
+  /* Usage guide */
+  .usage-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .usage-card {
+    background: #12111a;
+    border-radius: 8px;
+    padding: 16px;
+    border: 1px solid #1e1c24;
+  }
+  .usage-card h3 {
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    color: #7a7080;
+  }
+  .usage-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .usage-dot {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    flex-shrink: 0;
+  }
+  .usage-label { font-size: 11px; color: #b0a8a0; }
+  .usage-desc { font-size: 10px; color: #5a5260; }
+
+  /* Day cycle preview */
+  .day-cycle {
+    display: flex;
+    height: 100px;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.5);
+  }
+  .day-segment {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    padding-bottom: 8px;
+    position: relative;
+  }
+  .day-segment span {
+    font-size: 9px;
+    color: rgba(255,255,255,0.7);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Event color preview */
+  .event-preview {
+    display: flex;
+    gap: 10px;
+  }
+  .event-tile {
+    flex: 1;
+    border-radius: 8px;
+    padding: 14px;
+    text-align: center;
+  }
+  .event-tile h4 { font-size: 11px; margin-bottom: 4px; }
+  .event-tile p { font-size: 10px; opacity: 0.7; }
+
+  .note {
+    margin-top: 30px;
+    background: #12111a;
+    border: 1px solid #1e1c24;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 11px;
+    color: #7a7080;
+    line-height: 1.6;
+  }
+  .note strong { color: #d4a84b; }
+</style>
+</head>
+<body>
+
+<h1>Deck of Lies</h1>
+<div class="subtitle">Color Palette — Twin Peaks × 80s Anime</div>
+
+<!-- CORE PALETTE -->
+<div class="section-title">Core Palette</div>
+<div class="palette-row">
+  <div class="swatch">
+    <div class="swatch-color" style="background:#0a0a12;"></div>
+    <div class="swatch-info"><div class="swatch-name">Void</div><div class="swatch-hex">#0A0A12</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#12111a;"></div>
+    <div class="swatch-info"><div class="swatch-name">Deep Night</div><div class="swatch-hex">#12111A</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#1e1c28;"></div>
+    <div class="swatch-info"><div class="swatch-name">Shadow</div><div class="swatch-hex">#1E1C28</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#2a2638;"></div>
+    <div class="swatch-info"><div class="swatch-name">Dusk</div><div class="swatch-hex">#2A2638</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#3d3450;"></div>
+    <div class="swatch-info"><div class="swatch-name">Twilight</div><div class="swatch-hex">#3D3450</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#e8e0d4;"></div>
+    <div class="swatch-info"><div class="swatch-name">Parchment</div><div class="swatch-hex">#E8E0D4</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#c4bab0;"></div>
+    <div class="swatch-info"><div class="swatch-name">Fog</div><div class="swatch-hex">#C4BAB0</div></div>
+  </div>
+</div>
+
+<!-- ACCENT PALETTE -->
+<div class="section-title">Accent Palette</div>
+<div class="palette-row">
+  <div class="swatch">
+    <div class="swatch-color" style="background:#d4a84b;"></div>
+    <div class="swatch-info"><div class="swatch-name">Gold</div><div class="swatch-hex">#D4A84B</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#e8c86d;"></div>
+    <div class="swatch-info"><div class="swatch-name">Honey</div><div class="swatch-hex">#E8C86D</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#d45a3a;"></div>
+    <div class="swatch-info"><div class="swatch-name">Ember</div><div class="swatch-hex">#D45A3A</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#e88a6d;"></div>
+    <div class="swatch-info"><div class="swatch-name">Salmon</div><div class="swatch-hex">#E88A6D</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#c44d7b;"></div>
+    <div class="swatch-info"><div class="swatch-name">Crimson</div><div class="swatch-hex">#C44D7B</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#6b4dab;"></div>
+    <div class="swatch-info"><div class="swatch-name">Occult</div><div class="swatch-hex">#6B4DAB</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#4a8dbe;"></div>
+    <div class="swatch-info"><div class="swatch-name">Moonlight</div><div class="swatch-hex">#4A8DBE</div></div>
+  </div>
+  <div class="swatch">
+    <div class="swatch-color" style="background:#3ecda0;"></div>
+    <div class="swatch-info"><div class="swatch-name">Ether</div><div class="swatch-hex">#3ECDA0</div></div>
+  </div>
+</div>
+
+<!-- DAY CYCLE PREVIEW -->
+<div class="section-title">Day/Night Cycle Preview</div>
+<div class="day-cycle">
+  <div class="day-segment" style="background:#0a0a12;"><span>00</span></div>
+  <div class="day-segment" style="background:#0d0d18;"><span>01</span></div>
+  <div class="day-segment" style="background:#10101e;"><span>02</span></div>
+  <div class="day-segment" style="background:#131324;"><span>03</span></div>
+  <div class="day-segment" style="background:#16162a;"><span>04</span></div>
+  <div class="day-segment" style="background:#2a2038;"><span>05</span></div>
+  <div class="day-segment" style="background:#4a3040;"><span>06</span></div>
+  <div class="day-segment" style="background:#6d4838;"><span>07</span></div>
+  <div class="day-segment" style="background:#c44d24;"><span>08</span></div>
+  <div class="day-segment" style="background:#d46a30;"><span>09</span></div>
+  <div class="day-segment" style="background:#e08840;"><span>10</span></div>
+  <div class="day-segment" style="background:#e8a850;"><span>11</span></div>
+  <div class="day-segment" style="background:#e8c86d;"><span>12</span></div>
+  <div class="day-segment" style="background:#dcc06a;"><span>13</span></div>
+  <div class="day-segment" style="background:#d0b468;"><span>14</span></div>
+  <div class="day-segment" style="background:#c4a060;"><span>15</span></div>
+  <div class="day-segment" style="background:#b08058;"><span>16</span></div>
+  <div class="day-segment" style="background:#8a5848;"><span>17</span></div>
+  <div class="day-segment" style="background:#6b4548;"><span>18</span></div>
+  <div class="day-segment" style="background:#4d3445;"><span>19</span></div>
+  <div class="day-segment" style="background:#3a2838;"><span>20</span></div>
+  <div class="day-segment" style="background:#2a2030;"><span>21</span></div>
+  <div class="day-segment" style="background:#1e1828;"><span>22</span></div>
+  <div class="day-segment" style="background:#141220;"><span>23</span></div>
+</div>
+
+<!-- EVENT TILE COLORS -->
+<div class="section-title">Event Tile Colors</div>
+<div class="event-preview">
+  <div class="event-tile" style="background:#2a2638; border: 2px solid #d4a84b; color:#e8e0d4;">
+    <h4 style="color:#d4a84b;">Standard</h4>
+    <p>Gold border</p>
+  </div>
+  <div class="event-tile" style="background:#2a2030; border: 2px solid #e88a6d; color:#e8e0d4;">
+    <h4 style="color:#e88a6d;">Resource</h4>
+    <p>Salmon border</p>
+  </div>
+  <div class="event-tile" style="background:#2a1820; border: 2px solid #c44d7b; color:#e8e0d4;">
+    <h4 style="color:#c44d7b;">Curse</h4>
+    <p>Crimson border</p>
+  </div>
+  <div class="event-tile" style="background:#1c2a24; border: 2px solid #3ecda0; color:#e8e0d4;">
+    <h4 style="color:#3ecda0;">Blessing</h4>
+    <p>Ether border</p>
+  </div>
+  <div class="event-tile" style="background:#1e1c2e; border: 2px solid #6b4dab; color:#e8e0d4;">
+    <h4 style="color:#6b4dab;">Ritual</h4>
+    <p>Occult border</p>
+  </div>
+</div>
+
+<!-- USAGE GUIDE -->
+<div class="section-title">Usage Guide</div>
+<div class="usage-grid">
+  <div class="usage-card">
+    <h3>Backgrounds & Panels</h3>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#0a0a12;border:1px solid #2a2638;"></div>
+      <div><div class="usage-label">Void</div><div class="usage-desc">Main game background</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#12111a;"></div>
+      <div><div class="usage-label">Deep Night</div><div class="usage-desc">UI panels, popups, cards</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#1e1c28;"></div>
+      <div><div class="usage-label">Shadow</div><div class="usage-desc">Panel borders, separators</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#2a2638;"></div>
+      <div><div class="usage-label">Dusk</div><div class="usage-desc">Hover states, active panels</div></div>
+    </div>
+  </div>
+  <div class="usage-card">
+    <h3>Text & UI</h3>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#e8e0d4;"></div>
+      <div><div class="usage-label">Parchment</div><div class="usage-desc">Primary text</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#c4bab0;"></div>
+      <div><div class="usage-label">Fog</div><div class="usage-desc">Secondary text, descriptions</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#d4a84b;"></div>
+      <div><div class="usage-label">Gold</div><div class="usage-desc">Titles, highlights, buttons</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#e8c86d;"></div>
+      <div><div class="usage-label">Honey</div><div class="usage-desc">Hover on gold elements</div></div>
+    </div>
+  </div>
+  <div class="usage-card">
+    <h3>Card Types</h3>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#4a8dbe;"></div>
+      <div><div class="usage-label">Moonlight</div><div class="usage-desc">Character cards</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#e88a6d;"></div>
+      <div><div class="usage-label">Salmon</div><div class="usage-desc">Item cards</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#d4a84b;"></div>
+      <div><div class="usage-label">Gold</div><div class="usage-desc">Action cards</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#6b4dab;"></div>
+      <div><div class="usage-label">Occult</div><div class="usage-desc">Ritual cards</div></div>
+    </div>
+  </div>
+  <div class="usage-card">
+    <h3>Feedback & Status</h3>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#3ecda0;"></div>
+      <div><div class="usage-label">Ether</div><div class="usage-desc">Positive feedback, blessings</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#c44d7b;"></div>
+      <div><div class="usage-label">Crimson</div><div class="usage-desc">Negative feedback, curses</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#e8c86d;"></div>
+      <div><div class="usage-label">Honey</div><div class="usage-desc">Resource gain flash</div></div>
+    </div>
+    <div class="usage-item">
+      <div class="usage-dot" style="background:#d45a3a;"></div>
+      <div><div class="usage-label">Ember</div><div class="usage-desc">Warnings, danger</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+  <strong>Captain Tsubasa 2 influence:</strong> Deep saturated backgrounds with vibrant pops of color. The dark purples and blues act as the "stage" while Gold, Crimson, and Salmon provide drama — just like how CT2 uses dark stadiums with explosive character close-ups.<br><br>
+  <strong>Twin Peaks influence:</strong> The Occult purple, the red curtain-inspired Crimson, and the eerie Ether green all nod to the show's visual language. Parchment text on dark panels evokes that unsettling, noir-ish feeling.<br><br>
+  <strong>Recommended pixel resolution:</strong> 320×240 (NES-era) scaled up to your window size with nearest-neighbor filtering for that crisp retro look.
+</div>
+
+</body>
+</html>
