@@ -27,6 +27,8 @@ CharacterDatabase="*res://Scenes/Card/CharacterDatabase.gd"
 SignalBus="*res://Scenes/SignalBus.gd"
 ResourceManager="*res://Scenes/Board/ResourceManager.gd"
 DeckManager="*uid://dfymw2f8ghkgd"
+CharacterProgression="*uid://cl01lntin7kew"
+BattleEnemyDatabase="*uid://d374b8oe2lyx5"
 
 [editor_plugins]
 

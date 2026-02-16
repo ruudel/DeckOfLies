@@ -273,6 +273,20 @@ func setup_event_pools():
 		)
 	)
 	
+	var shadow_encounter = Event.new(
+		"shadow_battle",
+		"Shadow in the Dark",
+		"A menacing presence blocks your path.",
+		null,
+		"battle",  # NEW TYPE
+		1,
+		Event.RecurrenceType.UNLIMITED,
+		-1,
+		2  # 2 day cooldown
+	)
+	shadow_encounter.add_time_window(20, 4)  # Night encounters
+	standard_event_pool.append(shadow_encounter)
+	
 	# Combine for backward compatibility
 	event_pool = standard_event_pool + character_encounter_pool
 	

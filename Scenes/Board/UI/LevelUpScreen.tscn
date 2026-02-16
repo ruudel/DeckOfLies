@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://dser21mxctmef"]
+
+[ext_resource type="Script" uid="uid://cgkvh0n67o4g2" path="res://Scenes/Board/UI/LevelUpScreen.gd" id="1_rwf0d"]
+
+[node name="LevelUpScreen" type="CanvasLayer" unique_id=950795858]
+layer = 4
+script = ExtResource("1_rwf0d")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1311394633]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.11774104, 0.11207495, 0.15594886, 0.75900006)
+
+[node name="Panel" type="Panel" parent="ColorRect" unique_id=1159665770]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/Panel" unique_id=1099862487]
+layout_mode = 1
+anchors_preset = 13
+anchor_left = 0.5
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -81.0
+offset_right = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/Panel/MarginContainer" unique_id=275846738]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=939747656]
+layout_mode = 2
+text = "Midnight meditation"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=1102759560]
+layout_mode = 2
+
+[node name="InvocationPoints" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=842992038]
+layout_mode = 2
+
+[node name="EvocationPoints" type="Label" parent="ColorRect/Panel/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1951568628]
+layout_mode = 2
+
+[node name="HSeparator" type="HSeparator" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=369455365]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=2058112731]
+layout_mode = 2
+
+[node name="InvocationButton" type="Button" parent="ColorRect/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1746881437]
+layout_mode = 2
+text = "Invocation"
+
+[node name="EvocationButton" type="Button" parent="ColorRect/Panel/MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1438331275]
+layout_mode = 2
+text = "Evocation"
+
+[node name="ContentPanel" type="Panel" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=228504365]
+layout_mode = 2
+
+[node name="ContinueButton" type="Button" parent="ColorRect/Panel/MarginContainer/VBoxContainer" unique_id=415931767]
+layout_mode = 2
+text = "Continue"

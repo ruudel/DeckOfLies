@@ -1,0 +1,115 @@
+[gd_scene format=3 uid="uid://dlc1s7hao16yb"]
+
+[ext_resource type="Script" uid="uid://de6uipea55iv8" path="res://Scenes/Card/Battle/CardBattle.gd" id="1_6323a"]
+
+[node name="CardBattle" type="Control" unique_id=1651230508]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_6323a")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1942773045]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.039215688, 0.039215688, 0.07058824, 1)
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=899745862]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyArea" type="Control" parent="ColorRect/VBoxContainer" unique_id=1653809510]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.7
+
+[node name="EnemyPortrait" type="TextureRect" parent="ColorRect/VBoxContainer/EnemyArea" unique_id=1680274565]
+custom_minimum_size = Vector2(300, 300)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -4.0
+offset_top = -4.0
+offset_right = 4.0
+offset_bottom = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyInfo" type="VBoxContainer" parent="ColorRect/VBoxContainer/EnemyArea" unique_id=2096172609]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = 150.0
+offset_right = 20.0
+offset_bottom = 231.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="EnemyName" type="Label" parent="ColorRect/VBoxContainer/EnemyArea/EnemyInfo" unique_id=1758956859]
+layout_mode = 2
+
+[node name="EnemyHealth" type="ProgressBar" parent="ColorRect/VBoxContainer/EnemyArea/EnemyInfo" unique_id=1928167443]
+layout_mode = 2
+
+[node name="EnemyDescription" type="Label" parent="ColorRect/VBoxContainer/EnemyArea/EnemyInfo" unique_id=1677492640]
+layout_mode = 2
+
+[node name="BattleFooter" type="Panel" parent="ColorRect/VBoxContainer" unique_id=592804215]
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/VBoxContainer/BattleFooter" unique_id=995482644]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer" unique_id=206541619]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer" unique_id=219475146]
+layout_direction = 2
+layout_mode = 2
+
+[node name="Deck" type="Label" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1339242546]
+layout_mode = 2
+
+[node name="DeckCount" type="Label" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1677361466]
+layout_mode = 2
+
+[node name="DrawButton" type="Button" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer/VBoxContainer" unique_id=1944067631]
+layout_mode = 2
+text = "Draw Card
+"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer" unique_id=3401934]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HandContainer" type="HBoxContainer" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer/ScrollContainer" unique_id=93544925]
+layout_mode = 2
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer" unique_id=2064216761]
+layout_mode = 2
+
+[node name="EndTurnButton" type="Button" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=52988630]
+layout_mode = 2
+
+[node name="TurnInfo" type="Label" parent="ColorRect/VBoxContainer/BattleFooter/MarginContainer/HBoxContainer/VBoxContainer2" unique_id=404991225]
+layout_mode = 2

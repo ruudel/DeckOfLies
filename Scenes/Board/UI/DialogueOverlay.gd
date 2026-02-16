@@ -1,9 +1,9 @@
 extends CanvasLayer
 
-@onready var portrait = $Panel/MarginContainer/HBoxContainer/Portrait
-@onready var name_label = $Panel/MarginContainer/HBoxContainer/VBoxContainer/NameLabel
-@onready var dialogue_label = $Panel/MarginContainer/HBoxContainer/VBoxContainer/DialogueLabel
-@onready var next_button = $Panel/MarginContainer/HBoxContainer/VBoxContainer/NextButton
+@onready var portrait = $ColorRect/Panel/MarginContainer/HBoxContainer/Portrait
+@onready var name_label = $ColorRect/Panel/MarginContainer/HBoxContainer/VBoxContainer/NameLabel
+@onready var dialogue_label = $ColorRect/Panel/MarginContainer/HBoxContainer/VBoxContainer/DialogueLabel
+@onready var next_button = $ColorRect/Panel/MarginContainer/HBoxContainer/VBoxContainer/NextButton
 
 signal dialogue_finished(card: Card)
 

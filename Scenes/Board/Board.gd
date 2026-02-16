@@ -13,6 +13,8 @@ const PLAYER_STATS_UI = preload("res://Scenes/Board/UI/PlayerStatsUI.tscn")
 const DECK_VIEW = preload("res://Scenes/Card/Deck/DeckView.tscn")
 const ROLL_OVERLAY = preload("res://Scenes/Board/UI/RollOverlay.tscn")
 const DIALOGUE_OVERLAY = preload("res://Scenes/Board/UI/DialogueOverlay.tscn")
+const LEVEL_UP_SCREEN = preload("res://Scenes/Board/UI/LevelUpScreen.tscn")
+const CARD_BATTLE = preload("res://Scenes/Card/Battle/CardBattle.tscn")
 
 # Component scripts
 var visuals: BoardVisuals
@@ -22,16 +24,27 @@ var event_display: EventDisplay
 # UI references
 @onready var roll_button = $CanvasLayer/Button
 
+var level_up_screen
 var tiles = []
 var player
 var deck_view
+var card_battle
 
 func _ready():
 	_initialize_components()
 	_setup_signals()
 	_create_board()
-	_setup_ui()
 	_setup_starting_tiles()
+	
+	level_up_screen = LEVEL_UP_SCREEN.instantiate()
+	$CanvasLayer.add_child(level_up_screen)
+	
+	_setup_ui()
+
+	#card_battle = CARD_BATTLE.instantiate()
+	#add_child(card_battle)
+	#card_battle.battle_won.connect(_on_battle_won)
+	#card_battle.battle_lost.connect(_on_battle_lost)
 
 func _initialize_components():
 	# Create component instances
@@ -92,6 +105,7 @@ func _setup_ui():
 	# Event display (popups, dialogue, roll overlay)
 	event_display.setup_ui(self)
 
+
 func _setup_starting_tiles():
 	# Lock starting curse and blessing
 	var curse = TileEventManager.get_random_curse()
@@ -136,6 +150,18 @@ func _on_movement_finished():
 			SignalBus.popup_requested.emit(event)
 			roll_button.disabled = true
 
+	if TileEventManager.has_event(current_hour):
+		var event = TileEventManager.get_event(current_hour)
+		if event:
+			if event.event_type == "battle":
+				# Start battle immediately after closing event popup
+				var enemy = BattleEnemyDatabase.get_enemy("shadow_figure")
+				SignalBus.popup_closed.connect(func(): card_battle.start_battle(enemy), CONNECT_ONE_SHOT)
+			
+			movement.set_landed_event_hour(current_hour)
+			SignalBus.popup_requested.emit(event)
+			roll_button.disabled = true
+			
 func _on_reached_midnight():
 	SignalBus.midnight_crossed.emit()
 	GameState.increment_day()
@@ -144,9 +170,8 @@ func _on_reached_midnight():
 	visuals.clear_highlights(tiles)
 	visuals.highlight_event_tiles(tiles)
 	
-	var day_event = TileEventManager.get_day_change_event(GameState.current_day)
-	SignalBus.popup_requested.emit(day_event)
-
+	level_up_screen.show_level_up()
+	
 func _on_popup_closed():
 	# Handle multi-tile event end movement
 	if movement.has_landed_event():
@@ -161,3 +186,11 @@ func _on_dialogue_finished(card: Card):
 
 func _on_day_changed(_new_day: int):
 	pass  # Stats UI handles this
+
+func _on_battle_won():
+	print("Battle won! Continuing...")
+	SignalBus.popup_closed.emit()
+
+func _on_battle_lost():
+	print("Battle lost! Game over?")
+	# Handle defeat

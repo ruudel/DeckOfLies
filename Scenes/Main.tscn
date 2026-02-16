@@ -7,5 +7,7 @@
 script = ExtResource("1_r150o")
 
 [node name="Board" parent="." unique_id=1172974532 instance=ExtResource("5_pbw6q")]
+visible = false
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1888395063]
+visible = false

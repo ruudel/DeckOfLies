@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-@onready var panel = $Panel
-@onready var title_label = $Panel/VBoxContainer/TitleLabel
-@onready var image_rect = $Panel/VBoxContainer/ImageRect
-@onready var description_label = $Panel/VBoxContainer/DescriptionLabel
-@onready var close_button = $Panel/VBoxContainer/CloseButton
+@onready var panel = $ColorRect/Panel
+@onready var title_label = $ColorRect/Panel/VBoxContainer/TitleLabel
+@onready var image_rect = $ColorRect/Panel/VBoxContainer/ImageRect
+@onready var description_label = $ColorRect/Panel/VBoxContainer/DescriptionLabel
+@onready var close_button = $ColorRect/Panel/VBoxContainer/CloseButton
 
 var pending_character: Card = null
 
@@ -21,7 +21,7 @@ func show_event(event: Event):
 		visible = false
 		SignalBus.popup_closed.emit()
 		return
-	show()
+
 	title_label.text = event.title
 	description_label.text = event.description
 	
@@ -56,6 +56,15 @@ func show_event(event: Event):
 	if event.is_curse() or event.is_blessing():
 		if event.resource_pickup:
 			ResourceManager.add_resource(event.resource_pickup)
+		
+	# Handle battle encounters
+	if event.event_type == "battle":
+		description_label.text += "\n\n[Prepare for battle!]"
+		close_button.text = "Fight!"
+	else:
+		close_button.text = "Close"
+	
+	show()
 
 func _on_close_pressed():
 	print("EventPopup: Close button pressed")  # DEBUG
