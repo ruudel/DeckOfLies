@@ -1,4 +1,4 @@
-extends Control
+extends CanvasLayer
 
 @onready var new_game_button = $VBoxContainer/MenuButtons/NewGameButton
 @onready var continue_button = $VBoxContainer/MenuButtons/ContinueButton
